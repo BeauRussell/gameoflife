@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonToolbar, MenuItem, DropdownButton } from 'react-bootstrap';
+import { ButtonToolbar } from 'react-bootstrap';
 
 class Controller extends React.Component {
 	
@@ -15,7 +15,7 @@ class Controller extends React.Component {
 						Stop
 					</button>
 					<button onClick={this.props.clear}>
-						Clear Board
+						New Board
 					</button>
 				</ButtonToolbar>
 			</div>
