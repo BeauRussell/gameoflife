@@ -16,6 +16,7 @@ class App extends React.Component {
 
   componentWillMount(){
     this.createBoard();
+    this.start();
   }
 	
 	createBoard() {
@@ -36,8 +37,17 @@ class App extends React.Component {
 		this.setState({board: newBoard});
 	}
 
+	start() {
+		clearInterval(this.intervalId);
+		this.intervalId = setInterval(this.play, 300);
+	}
+
+	stop() {
+		clearInterval(this.intervalId);
+	}
+
 	play() {
-		//Need to create 2 boards to prevent changes for tiles when past ones are modified
+		console.log(this.state);
 		const playBoard = this.state.board;
 		let newBoard = playBoard.slice(0);
 		for (var i = 0; i < this.state.rows; i++) {
@@ -62,6 +72,7 @@ class App extends React.Component {
 		const maxRows = this.state.rows;
 		const maxCols = this.state.cols;
 		let neighbors = 0;
+		console.log(playBoard);
 		if (row > 0 && playBoard[row - 1][col]) {
 			neighbors++;
 		}
@@ -93,7 +104,10 @@ class App extends React.Component {
 		return(
 			<div id="root">
 				<h1>Conway's Game of Life</h1>
-				<Controller />
+				<Controller
+					start={this.start}
+					stop={this.stop}
+				/>
 				<Board
 					board={this.state.board}
 					rows={this.state.rows}
