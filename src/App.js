@@ -1,21 +1,51 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Board from './Board';
+import Controller from './Controller';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			board: [],
+			rows: 50,
+			cols: 50,
+			cycles: 0
+		}
+		this.createBoard();
+	}
+
+	createBoard() {
+		var newBoard = [];
+		for (var i = 0; i < this.state.rows; i++) {
+			var row = [];
+			for (var j = 0; j < this.state.cols; j++) {
+				let fillValue;
+				if (Math.random() > 0.65) {
+					fillValue = true;
+				} else {
+					fillValue = false;
+				}
+				row.push(fillValue);
+			}
+			newBoard.push(row);
+		}
+		this.setState({board: newBoard});
+	}
+
+	render() {
+		return(
+			<div id="root">
+				<h1>Conway's Game of Life</h1>
+				<Controller />
+				<Board
+					board={this.state.board}
+					rows={this.state.rows}
+					cols={this.state.cols}
+				/>
+				<p>Years Passed: {this.state.cycles}</p>
+			</div>
+		);
+	}
 }
 
 export default App;
