@@ -99,17 +99,18 @@ class App extends React.Component {
 	render() {
 		return(
 			<div id="root">
-				<h1>Conway's Game of Life</h1>
+				<h1 className="center">Conway's Game of Life</h1>
 				<Controller
 					start={this.start.bind(this)}
 					stop={this.stop.bind(this)}
+					clear={this.createBoard}
 				/>
 				<Board
 					board={this.state.board}
 					rows={this.state.rows}
 					cols={this.state.cols}
 				/>
-				<p>Years Passed: {this.state.cycles}</p>
+				<p className="center">Years Passed: {this.state.cycles}</p>
 			</div>
 		);
 	}

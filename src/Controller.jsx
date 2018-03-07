@@ -8,11 +8,14 @@ class Controller extends React.Component {
 		return(
 			<div className="center">
 				<ButtonToolbar>
-					<button className="btn btn-default" onClick={this.props.start}>
+					<button onClick={this.props.start}>
 						Play
 					</button>
-					<button className="btn btn-default" onClick={this.props.stop}>
+					<button onClick={this.props.stop}>
 						Stop
+					</button>
+					<button onClick={this.props.clear}>
+						Clear Board
 					</button>
 				</ButtonToolbar>
 			</div>
