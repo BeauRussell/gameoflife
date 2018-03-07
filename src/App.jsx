@@ -16,7 +16,6 @@ class App extends React.Component {
 
   componentWillMount(){
     this.createBoard();
-    this.start();
   }
 	
 	createBoard() {
@@ -38,8 +37,8 @@ class App extends React.Component {
 	}
 
 	start() {
-		clearInterval(this.intervalId);
-		this.intervalId = setInterval(this.play, 300);
+		console.log("I started");
+		this.intervalId = setInterval(this.play.bind(this), 300);
 	}
 
 	stop() {
@@ -47,7 +46,6 @@ class App extends React.Component {
 	}
 
 	play() {
-		console.log(this.state);
 		const playBoard = this.state.board;
 		let newBoard = playBoard.slice(0);
 		for (var i = 0; i < this.state.rows; i++) {
@@ -72,7 +70,6 @@ class App extends React.Component {
 		const maxRows = this.state.rows;
 		const maxCols = this.state.cols;
 		let neighbors = 0;
-		console.log(playBoard);
 		if (row > 0 && playBoard[row - 1][col]) {
 			neighbors++;
 		}
