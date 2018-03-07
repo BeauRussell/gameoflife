@@ -37,6 +37,7 @@ class App extends React.Component {
 	}
 
 	start() {
+		clearInterval(this.intervalId);
 		this.intervalId = setInterval(this.play.bind(this), 300);
 	}
 
@@ -50,7 +51,7 @@ class App extends React.Component {
 		for (var i = 0; i < this.state.rows; i++) {
 			for (var j = 0; j < this.state.cols; j++) {
 				const neighbors = this.findNeighbors(playBoard, i, j);
-				if (playBoard[i][j] && neighbors < 2 || neighbors > 3) {
+				if (playBoard[i][j] && (neighbors < 2 || neighbors > 3)) {
 					newBoard[i][j] = false;
 				}
 				if (!playBoard[i][j] && neighbors === 3) {
