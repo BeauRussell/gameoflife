@@ -37,7 +37,6 @@ class App extends React.Component {
 	}
 
 	start() {
-		console.log("I started");
 		this.intervalId = setInterval(this.play.bind(this), 300);
 	}
 
@@ -67,7 +66,7 @@ class App extends React.Component {
 	}
 
 	findNeighbors(playBoard, row, col) {
-		const maxRows = this.state.rows;
+		const maxRows = this.state.rows - 1;
 		const maxCols = this.state.cols;
 		let neighbors = 0;
 		if (row > 0 && playBoard[row - 1][col]) {
@@ -102,8 +101,8 @@ class App extends React.Component {
 			<div id="root">
 				<h1>Conway's Game of Life</h1>
 				<Controller
-					start={this.start}
-					stop={this.stop}
+					start={this.start.bind(this)}
+					stop={this.stop.bind(this)}
 				/>
 				<Board
 					board={this.state.board}
