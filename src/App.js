@@ -24,7 +24,7 @@ class App extends React.Component {
 			var row = [];
 			for (var j = 0; j < this.state.cols; j++) {
 				let fillValue;
-				if (Math.random() > 0.65) {
+				if (Math.random() > 0.75) {
 					fillValue = true;
 				} else {
 					fillValue = false;
@@ -33,8 +33,60 @@ class App extends React.Component {
 			}
 			newBoard.push(row);
 		}
-		console.log(newBoard);
 		this.setState({board: newBoard});
+	}
+
+	play() {
+		//Need to create 2 boards to prevent changes for tiles when past ones are modified
+		const playBoard = this.state.board;
+		let newBoard = playBoard.slice(0);
+		for (var i = 0; i < this.state.rows; i++) {
+			for (var j = 0; j < this.state.cols; j++) {
+				const neighbors = this.findNeighbors(playBoard, i, j);
+				if (playBoard[i][j] && neighbors < 2 || neighbors > 3) {
+					newBoard[i][j] = false;
+				}
+				if (!playBoard[i][j] && neighbors === 3) {
+					newBoard[i][j] = true;
+				}
+			}
+		}
+		const newCycles = this.state.cycles + 1;
+		this.setState({
+			board: newBoard,
+			cycles: newCycles
+		});
+	}
+
+	findNeighbors(playBoard, row, col) {
+		const maxRows = this.state.rows;
+		const maxCols = this.state.cols;
+		let neighbors = 0;
+		if (row > 0 && playBoard[row - 1][col]) {
+			neighbors++;
+		}
+		if (row > 0 && col < maxCols && playBoard[row - 1][col + 1]) {
+			neighbors++;
+		}
+		if (col < maxCols && playBoard[row][col + 1]) {
+			neighbors++;
+		}
+		if (row < maxRows && col < maxCols && playBoard[row + 1][col + 1]) {
+			neighbors++;
+		}
+		if (row < maxRows && playBoard[row + 1][col]) {
+			neighbors++;
+		}
+		if (row < maxRows && col > 0 && playBoard[row + 1][col - 1]) {
+			neighbors++;
+		}
+		if (col > 0 && playBoard[row][col - 1]) {
+			neighbors++;
+		}
+		if (row > 0 && col > 0 && playBoard[row - 1][col - 1]) {
+			neighbors++;
+		}
+		return neighbors;
 	}
 
 	render() {
