@@ -2,22 +2,19 @@ import React from 'react';
 import Box from './Box';
 
 class Board extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			drawnBoard: []
-		}
-	}
-
-	drawBoard() {
+	render() {
+		const width = this.props.cols * 16;
 		var drawnBoard = [];
+
+		var boxClass = "";
 		for (var i = 0; i < this.props.rows; i++) {
 			for (var j = 0; j < this.props.cols; j++) {
 				let boxId = i + "_" + j;
-				var boxFill = this.props.board[i][j] ? "box fill" : "box empty";
+
+				boxClass = this.props.board[i][j] ? "box fill" : "box empty";
 				drawnBoard.push(
-					<Box 
-						boxFill={boxFill}
+					<Box
+						boxClass={boxClass}
 						key={boxId}
 						row={i}
 						col={j}
@@ -25,12 +22,10 @@ class Board extends React.Component {
 				);
 			}
 		}
-	}
 
-	render() {
-		return(
-			<div className="Board">
-				{this.state.drawnBoard}
+		return (
+			<div className="board" style={{width: width}}>
+				{drawnBoard}
 			</div>
 		);
 	}

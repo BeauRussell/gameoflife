@@ -3,17 +3,21 @@ import Board from './Board';
 import Controller from './Controller';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			board: [],
-			rows: 50,
-			cols: 50,
-			cycles: 0
-		}
-		this.createBoard();
-	}
+  constructor(props) {
+  	super(props);
+    this.state = {
+      board: [],
+      rows: 50,
+      cols: 50,
+      cycles: 0
+    };
+    this.createBoard = this.createBoard.bind(this);
+  }
 
+  componentWillMount(){
+    this.createBoard();
+  }
+	
 	createBoard() {
 		var newBoard = [];
 		for (var i = 0; i < this.state.rows; i++) {
@@ -29,6 +33,7 @@ class App extends React.Component {
 			}
 			newBoard.push(row);
 		}
+		console.log(newBoard);
 		this.setState({board: newBoard});
 	}
 
